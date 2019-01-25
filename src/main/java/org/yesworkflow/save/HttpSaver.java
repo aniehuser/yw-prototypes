@@ -1,9 +1,10 @@
 package org.yesworkflow.save;
 
-import org.mockito.internal.runners.StrictRunner;
 import org.yesworkflow.save.data.RunDto;
 import org.yesworkflow.save.response.YwResponse;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class HttpSaver implements Saver
@@ -19,6 +20,7 @@ public class HttpSaver implements Saver
     String model = "";
     String model_checksum = "";
     String recon = "";
+    ArrayList<String> tags = new ArrayList<String>();
 
     public HttpSaver(IYwSerializer ywSerializer){
         this.ywSerializer = ywSerializer;
@@ -36,7 +38,7 @@ public class HttpSaver implements Saver
     {
         client = new YwClient(baseURL, ywSerializer);
 
-        RunDto run = new RunDto(username, title, description, model, model_checksum, graph, recon);
+        RunDto run = new RunDto(username, title, description, model, model_checksum, graph, recon, tags);
         try {
             YwResponse<RunDto> response;
             if(workflowId == null)
@@ -79,6 +81,11 @@ public class HttpSaver implements Saver
                 break;
             case "description":
                 description = (String) value;
+                break;
+            case "tags" :
+                String valTags = (String) value;
+                tags = new ArrayList<String>(Arrays.asList(valTags.split("\\s*,\\s*")));
+                break;
             default:
                 break;
         }
