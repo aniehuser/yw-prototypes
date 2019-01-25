@@ -6,3 +6,4 @@ public class StringHash {
         return Integer.toString(hashString.hashCode());
     }
 }
+
