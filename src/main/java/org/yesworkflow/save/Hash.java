@@ -10,11 +10,11 @@ import java.security.NoSuchAlgorithmException;
 
 
 
-public class URIHash {
+public class Hash {
 
     private MessageDigest md;
 
-    public URIHash(String hashAlgorithm) throws NoSuchAlgorithmException{
+    public Hash(String hashAlgorithm) throws NoSuchAlgorithmException{
 
         this.md = MessageDigest.getInstance(hashAlgorithm);
 
@@ -70,6 +70,10 @@ public class URIHash {
         }
 
         return hexString.toString();
+    }
+
+    public static String getStringHash(String hashString) {
+        return Integer.toString(hashString.hashCode());
     }
 
 
