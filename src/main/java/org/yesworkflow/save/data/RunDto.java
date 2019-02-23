@@ -19,7 +19,7 @@ public class RunDto {
     @SerializedName("graph")
     public String graph;
     @SerializedName("recon")
-    public String recon;
+    public List<String> reconFiles;
     @SerializedName("tags")
     public List<String> tags;
     @SerializedName("scripts")
@@ -33,7 +33,7 @@ public class RunDto {
                   String model,
                   String modelChecksum,
                   String graph,
-                  String recon,
+                  List<String> reconFiles,
                   List<String> tags,
                   List<ScriptDto> scripts,
                   List<FileDto> files) {
@@ -43,7 +43,7 @@ public class RunDto {
         this.model = model;
         this.modelChecksum = modelChecksum;
         this.graph = graph;
-        this.recon = recon;
+        this.reconFiles = reconFiles;
         this.tags = tags;
         this.scripts = scripts;
         this.files = files;
@@ -58,18 +58,18 @@ public class RunDto {
         public String model;
         public String modelChecksum;
         public String graph;
-        public String recon;
+        public List<String> reconFiles;
         public List<String> tags;
         public List<ScriptDto> scripts;
         public List<FileDto> files;
 
-        public Builder(String username, String model, String modelChecksum, String graph, String recon, List<ScriptDto> scripts)
+        public Builder(String username, String model, String modelChecksum, String graph, List<String> reconFiles, List<ScriptDto> scripts)
         {
             this.username = username;
             this.model = model;
             this.modelChecksum = modelChecksum;
             this.graph = graph;
-            this.recon = recon;
+            this.reconFiles = reconFiles;
             this.scripts = scripts;
         }
 
@@ -112,7 +112,7 @@ public class RunDto {
         this.model=builder.model;
         this.modelChecksum =builder.modelChecksum;
         this.graph=builder.graph;
-        this.recon=builder.recon;
+        this.reconFiles=builder.reconFiles;
         this.tags=builder.tags;
         this.scripts=builder.scripts;
         this.files=builder.files;

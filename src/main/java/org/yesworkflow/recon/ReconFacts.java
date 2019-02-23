@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.yesworkflow.annotations.In;
 import org.yesworkflow.annotations.Log;
@@ -41,6 +42,8 @@ public class ReconFacts {
     private Map<String,Resource> resourceForUri = new HashMap<String,Resource>();
 
     private ResourceFinder resourceFinder;
+
+    public List<String> reconFiles = new ArrayList<String>();
     
     public ReconFacts(QueryEngine queryEngine, Run run, ResourceFinder resourceFinder) throws IOException {
         
@@ -162,6 +165,7 @@ public class ReconFacts {
             resource = new Resource(nextResourceId++, uri.toString());
             resourceForUri.put(uri, resource);
             resourceFacts.addRow(resource.id, FileIO.normalizePathSeparator(uri));
+            reconFiles.add(FileIO.normalizePathSeparator(uri));
         }
         dataResourceFacts.addRow(data.id, resource.id);
         return resource;
@@ -177,5 +181,9 @@ public class ReconFacts {
     
     public Map<String,String> facts() {
         return facts;
+    }
+
+    public List<String> getReconFiles() {
+        return reconFiles;
     }
 }

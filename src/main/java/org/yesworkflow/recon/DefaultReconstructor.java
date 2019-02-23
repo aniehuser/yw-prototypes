@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.List;
 
 import org.yesworkflow.config.YWConfiguration;
 import org.yesworkflow.query.QueryEngine;
@@ -18,6 +19,7 @@ public class DefaultReconstructor implements Reconstructor  {
     private Run run = null;
     private String factsFile = null;
     private Map<String, String> reconFacts = null;
+    private List<String> reconFiles = null;
     private QueryEngine queryEngine = DEFAULT_QUERY_ENGINE;
     private ResourceFinder resourceFinder = null;
     private Map<String,Object> finderConfiguration = null;
@@ -118,6 +120,14 @@ public class DefaultReconstructor implements Reconstructor  {
             reconFacts = new ReconFacts(queryEngine, run, resourceFinder).build().facts();
         }
         return reconFacts;
+    }
+
+    @Override
+    public List<String> getReconFiles() throws Exception {
+        if (reconFiles == null) {
+            reconFiles = new ReconFacts(queryEngine, run, resourceFinder).build().getReconFiles();
+        }
+        return reconFiles;
     }
     
     private void writeTextsToFilesOrStdout(String path, Map<String,String> texts) throws IOException {

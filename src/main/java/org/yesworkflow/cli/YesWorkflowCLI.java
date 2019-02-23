@@ -463,8 +463,9 @@ public class YesWorkflowCLI {
         }
         List<String> sourceCodeList = extractor.getSourceCodeList();
         List<String> sourcePaths = extractor.getSourcePaths();
+        List<String> reconFiles = reconstructor.getReconFiles();
         saver.configure(config.getSection("save"))
-                .build("placeholder model", grapher.toString(), "placeholder recon", sourceCodeList, sourcePaths)
+                .build("placeholder model", grapher.toString(), reconFiles, sourceCodeList, sourcePaths)
                 .save();
     }
 }

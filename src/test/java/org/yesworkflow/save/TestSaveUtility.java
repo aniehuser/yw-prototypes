@@ -39,8 +39,9 @@ public class TestSaveUtility extends YesWorkflowTestCase
         String expected = String.format("{\"username\":\"u\",\"model\":\"m\",\"modelChecksum\":\"mc\",\"graph\":\"g\",\"recon\":\"r\",\"scripts\":[%s]}", scriptJson);
 
         ArrayList<ScriptDto> s = new ArrayList<>();
+        ArrayList<String> r = new ArrayList<String>();
         s.add(scriptDto);
-        RunDto testRunDto = new RunDto.Builder("u", "m", "mc", "g", "r", s)
+        RunDto testRunDto = new RunDto.Builder("u", "m", "mc", "g", r, s)
                                                 .build();
 
         String actual = serializer.Serialize(testRunDto);

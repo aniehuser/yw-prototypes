@@ -22,19 +22,20 @@ public class HttpSaver implements Saver
     String graph = "";
     String model = "";
     String model_checksum = "";
-    String recon = "";
+    // String recon = "";
     List<String> tags = new ArrayList<String>();
     List<ScriptDto> scripts = null;
+    List<String> reconFiles = new ArrayList<String>();
 
     public HttpSaver(IYwSerializer ywSerializer){
         this.ywSerializer = ywSerializer;
     }
 
-    public Saver build(String model, String graph, String recon, List<String> sourceCodeList, List<String> sourcePaths)
+    public Saver build(String model, String graph, List<String> reconFiles, List<String> sourceCodeList, List<String> sourcePaths)
     {
         this.model = model;
         this.graph = graph;
-        this.recon = recon;
+        this.reconFiles = reconFiles;
         this.scripts = new ArrayList<>();
         for (int i = 0; i < sourceCodeList.size(); i++)
         {
@@ -50,7 +51,7 @@ public class HttpSaver implements Saver
     {
         client = new YwClient(baseURL, ywSerializer);
 
-        RunDto run = new RunDto.Builder(username, model, model_checksum, graph, recon, scripts)
+        RunDto run = new RunDto.Builder(username, model, model_checksum, graph, reconFiles, scripts)
                                 .setTitle(title)
                                 .setDescription(description)
                                 .setTags(tags)
