@@ -22,10 +22,10 @@ public class HttpSaver implements Saver
     String graph = "";
     String model = "";
     String model_checksum = "";
-    // String recon = "";
     List<String> tags = new ArrayList<String>();
     List<ScriptDto> scripts = null;
     List<String> reconFiles = new ArrayList<String>();
+    List<String> reconChecksums = new ArrayList<String>();
 
     public HttpSaver(IYwSerializer ywSerializer){
         this.ywSerializer = ywSerializer;
@@ -37,6 +37,11 @@ public class HttpSaver implements Saver
         this.graph = graph;
         this.reconFiles = reconFiles;
         this.scripts = new ArrayList<>();
+        for (int i = 0; i < reconFiles.size(); i++)
+        {
+            String checksum = Hash.getStringHash(reconFiles.get(i));
+            reconChecksums.add(checksum);
+        }
         for (int i = 0; i < sourceCodeList.size(); i++)
         {
             String checksum = Hash.getStringHash(sourceCodeList.get(i));
