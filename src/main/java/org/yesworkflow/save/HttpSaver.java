@@ -33,22 +33,29 @@ public class HttpSaver implements Saver
 
     public Saver build(String model, String graph, List<String> reconFiles, List<String> sourceCodeList, List<String> sourcePaths)
     {
+
         this.model = model;
         this.graph = graph;
         this.reconFiles = reconFiles;
         this.scripts = new ArrayList<>();
-        for (int i = 0; i < reconFiles.size(); i++)
+
+        try {
+            Hash hash = new Hash("md5");
+            for (int i = 0; i < reconFiles.size(); i++)
         {
-            String checksum = Hash.getStringHash(reconFiles.get(i));
+            String checksum = hash.getHash(reconFiles.get(i));
             reconChecksums.add(checksum);
         }
         for (int i = 0; i < sourceCodeList.size(); i++)
         {
-            String checksum = Hash.getStringHash(sourceCodeList.get(i));
+            String checksum = hash.getHash(sourceCodeList.get(i));
             ScriptDto scriptDto = new ScriptDto(sourcePaths.get(i), sourceCodeList.get(i), checksum);
             scripts.add(scriptDto);
         }
-
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
         return this;
     }
 
