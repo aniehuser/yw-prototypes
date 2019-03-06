@@ -91,10 +91,18 @@ public class YwClient implements IClient {
         {
             StringEntity json = new StringEntity(serializer.Serialize(Dto));
             json.setContentType("application/json");
+            try {
+                String result = IOUtils.toString(json.getContent(), StandardCharsets.UTF_8);
+                System.out.println(result);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+            
             postRequest.setEntity(json);
             System.out.println(postRequest);
             if(token != null)
                 postRequest.addHeader("Authentication", token);
+                System.out.println(postRequest);
             response = executeRequest(postRequest, rClass);
         } catch (UnsupportedEncodingException e)
         {

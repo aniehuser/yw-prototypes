@@ -471,7 +471,7 @@ public class YesWorkflowCLI {
         }
 
         saver.configure(config.getSection("save"))
-                .build(run, grapher.toString(), extractor.getSourceCodeList(), extractor.getSourcePaths())
+                .build(model, grapher.toString(), extractor.getSourceCodeList(), extractor.getSourcePaths(), modeler.getModelStringFacts())
                 .save();
     }
 }

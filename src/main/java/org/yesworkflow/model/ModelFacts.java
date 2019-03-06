@@ -221,4 +221,12 @@ public class ModelFacts {
     public Map<String,String> facts() {
         return facts;
     }
+
+    public String getFactsString() {
+        String factsString = "";
+        for (Map.Entry<String, String> entry : facts.entrySet()) {
+            factsString += entry.getValue() + "\n";            
+        }
+        return factsString;
+    }
 }

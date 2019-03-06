@@ -2,11 +2,11 @@ package org.yesworkflow.recon;
 
 public class UriVariableValue
 {
-    public Long uriVariable;
-    public Integer resource;
+    public Integer uriVariable;
+    public Long resource;
     public String value;
 
-    public UriVariableValue(Long uriVariable, Integer resource, String value)
+    public UriVariableValue(Integer uriVariable, Long resource, String value)
     {
         this.uriVariable = uriVariable;
         this.resource = resource;

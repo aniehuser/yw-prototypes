@@ -1,21 +1,15 @@
 package org.yesworkflow.save;
 
-import org.yesworkflow.exceptions.YwSaveException;
 import org.yesworkflow.model.*;
-import org.yesworkflow.recon.Run;
 import org.yesworkflow.save.data.*;
 import org.yesworkflow.save.response.SaveResponse;
 import org.yesworkflow.save.response.UpdateResponse;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Function;
-
 
 public class HttpSaver implements Saver
 {
@@ -30,17 +24,15 @@ public class HttpSaver implements Saver
     String title = null;
     String description = null;
     String graph = "";
-    Run run = null;
+    Model model = null;
     String modelChecksum = "";
-    List<String> tags;
-    List<ScriptDto> scripts;
-    List<DataDto> data;
-    List<ChannelDto> channels;
-    List<PortDto> ports;
-    List<ProgramBlockDto> programBlocks;
-    List<ResourceDto> resources;
-    List<UriVariableDto> uriVariables;
-    List<UriVariableValueDto> uriVariableValues;
+    String modelFacts = "";
+    List<String> tags = null;
+    List<ScriptDto> scripts = null;
+    List<DataDto> data = null;
+    List<ChannelDto> channels = null;
+    List<PortDto> ports = null;
+    List<ProgramBlockDto> programBlocks = null;
 
     public HttpSaver(IYwSerializer ywSerializer) throws YwSaveException
     {
@@ -78,7 +70,6 @@ public class HttpSaver implements Saver
 
         // TODO:: make model string representation and take checksum.
         modelChecksum = scripts.get(0).checksum;
-
         flattenModel(run.model);
         resources = mapCustomObjectList(run.resources, ResourceDto::new);
         uriVariables = mapCustomObjectList(run.uriVariables, UriVariableDto::new);
@@ -128,7 +119,6 @@ public class HttpSaver implements Saver
 
         return this;
     }
-
     private List<ScriptDto> hashAndMapSourcePaths(List<String> sourcePaths, List<String> sourceCodeList)
     {
         List<ScriptDto> scriptDtoList = new ArrayList<>();
@@ -146,7 +136,6 @@ public class HttpSaver implements Saver
         }
         return scriptDtoList;
     }
-
     private void flattenModel(Model model)
     {
         data.addAll(mapData(model.data));

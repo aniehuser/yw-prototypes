@@ -31,6 +31,7 @@ public class DefaultModeler implements Modeler {
     private PrintStream stdoutStream = null;
     private PrintStream stderrStream = null;
     private String factsFile = null;
+    private String factsString = null;
     private Map<String, String> modelFacts = null;
     private QueryEngine queryEngine = DEFAULT_QUERY_ENGINE;    
     
@@ -96,6 +97,14 @@ public class DefaultModeler implements Modeler {
             modelFacts = new ModelFacts(queryEngine, model).build().facts();
         }
         return modelFacts;
+    }
+
+    @Override
+    public String getModelStringFacts() throws Exception {
+        if (factsString == null) {
+            factsString = new ModelFacts(queryEngine, model).build().getFactsString();
+        }
+        return factsString;
     }
 
     private void writeTextsToFilesOrStdout(String path, Map<String,String> texts) throws IOException {

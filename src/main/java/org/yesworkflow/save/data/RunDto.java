@@ -161,7 +161,6 @@ public class RunDto {
             this.resources = resources;
             return this;
         }
-
         public Builder setUriVariableValues(List<UriVariableValueDto> uriVariableValues)
         {
             this.uriVariableValues = uriVariableValues;

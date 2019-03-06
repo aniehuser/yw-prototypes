@@ -15,4 +15,5 @@ public interface Modeler extends YWStage, Configurable {
     Modeler model() throws Exception;
     Model getModel();
     Map<String, String> getFacts() throws IOException;
+    String getModelStringFacts() throws Exception;
 }

@@ -99,6 +99,7 @@ public class ReconFacts {
             for (Resource resource : resources) {
                 buildUriVariableValueFacts(port.uriTemplate, resource);
             }
+            run.resources.addAll(resources);
         }
     }
 
@@ -170,8 +171,12 @@ public class ReconFacts {
     }
     
     private Resource addResource(Data data, String uri) throws IOException {
-        Resource resource = new Resource(nextResourceId++, uri.toString());
-        resourceFacts.addRow(resource.id, FileIO.normalizePathSeparator(uri));
+        Resource resource = resourceForUri.get(uri);
+        if (resource == null) {
+            resource = new Resource(nextResourceId++, uri.toString());
+            resourceForUri.put(uri, resource);
+            resourceFacts.addRow(resource.id, FileIO.normalizePathSeparator(uri));
+        }
         resource.data = data.id;
         dataResourceFacts.addRow(data.id, resource.id);
         return resource;
@@ -181,7 +186,7 @@ public class ReconFacts {
         Map<String,String> variableValues = uriTemplate.extractValuesFromPath(resource.uri);
         for (TemplateVariable variable : uriTemplate.variables) {
             String variableValue = variableValues.get(variable.name);
-            run.uriVariableValues.add(new UriVariableValue(variable.id, resource.id, variableValue));
+            run.uriVariableValues.add(new UriVariableValue(resource.id, variable.id, variableValue));
             uriVariableValueFacts.addRow(resource.id, variable.id, variableValue);
         }
     }
